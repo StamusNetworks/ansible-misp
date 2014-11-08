@@ -8,3 +8,9 @@
           - Plugin/CakeResque/tmp/
         tags:
           - permissions
+
+      - name: perms => set script to be executable
+        file: dest=/var/www/MISP/app/Console/worker/start.sh mode=0750 group=www-data
+        sudo: yes
+        tags:
+          - permissions
