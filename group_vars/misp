@@ -15,4 +15,7 @@ salt: Rooraenietu8Eeyo<Qu2eeNfterd-dd+
 background_tasks: true
 
 #set MISP in debug mode: 1 or 0
-debug: 1
+debug: 0
+
+# SMTP smarthost for exim
+smarthost: smtp

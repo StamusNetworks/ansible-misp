@@ -1,0 +1,23 @@
+      - name: smtp => install deb packages
+        apt: name=exim4-daemon-light
+        sudo: yes
+        tags:
+           - smtp
+
+      - name: smtp => Exim4 configuration
+        template: src=update-exim4.conf.conf.j2 dest=/etc/exim4/update-exim4.conf.conf
+        sudo: yes
+        tags:
+           - smtp
+
+      - name: smtp => update configuration
+        command: update-exim4.conf
+        sudo: yes
+        tags:
+           - smtp
+
+      - name: smtp => restart exim4
+        service: name=exim4 state=restarted
+        sudo: yes
+        tags:
+           - smtp

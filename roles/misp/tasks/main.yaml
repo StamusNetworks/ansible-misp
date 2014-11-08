@@ -7,3 +7,4 @@
       - include: config.yaml
       - include: background.yaml
         when: background_tasks
+      - include: smtp.yaml
