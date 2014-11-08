@@ -1,0 +1,28 @@
+      - name: gpg => test for key existence
+        stat: path=/var/www/MISP/app/webroot/gpg.asc
+        register: gpg_key
+        sudo: yes
+
+      - name: gpg => creating key dir
+        file: dest=/var/www/MISP/.gnupg state=directory owner=www-data group=www-data mode=0700
+        when: gpg_key.stat.exists is not defined or not gpg_key.stat.exists
+        sudo: yes
+
+      - name: gpg => creating info for key
+        template: src=skeyleton.j2 dest=/tmp/skeyleton
+        when: gpg_key.stat.exists is not defined or not gpg_key.stat.exists
+
+      - name: gpg => create key
+        command: gpg --homedir /var/www/MISP/.gnupg --batch --gen-key /tmp/skeyleton
+        sudo: yes
+        sudo_user: www-data
+        when: gpg_key.stat.exists is not defined or not gpg_key.stat.exists
+
+      - name: gpg => delete tmp file
+        file: dest=/tmp/skeyleton state=absent
+        when: gpg_key.stat.exists is not defined or not gpg_key.stat.exists
+
+      - name: gpg => export key
+        shell: gpg --homedir /var/www/MISP/.gnupg --export --armor {{ email }} > /var/www/MISP/app/webroot/gpg.asc
+        sudo: yes
+        when: gpg_key.stat.exists is not defined or not gpg_key.stat.exists

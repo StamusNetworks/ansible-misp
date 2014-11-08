@@ -1,0 +1,6 @@
+      - name: perms => set filesystem permissions
+        file: dest=/var/www/MISP/app/{{ item }} owner=www-data group=www-data mode=0750 recurse=yes
+        sudo: yes
+        with_items:
+          - tmp
+          - files

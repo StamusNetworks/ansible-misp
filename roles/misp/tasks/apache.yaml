@@ -1,0 +1,19 @@
+      - name: apache => install misp.conf
+        command: cp /var/www/MISP/INSTALL/apache.misp /etc/apache2/sites-available/misp.conf
+        sudo: yes
+
+      - name: apache => enable mod rewrite
+        apache2_module: state=present name=rewrite
+        sudo: yes
+
+      - name: apache => disable default site
+        command: a2dissite default
+        sudo: yes
+
+      - name: apache => enable misp site
+        command: a2ensite misp.conf
+        sudo: yes
+
+      - name: apache => restart apache
+        service: name=apache2 state=restarted
+        sudo: yes

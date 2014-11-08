@@ -1,0 +1,12 @@
+      - name: mysql => create db
+        mysql_db: name=misp state=present
+        sudo: yes
+
+      - name: mysql => import db
+        mysql_db: name=misp state=import target=/var/www/MISP/INSTALL/MYSQL.sql
+        ignore_errors: yes
+        sudo: yes
+
+      - name: mysql => create misp user
+        mysql_user: name=misp password={{ mysql_password }} priv=misp.*:ALL state=present
+        sudo: yes

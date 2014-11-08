@@ -1,0 +1,17 @@
+mysql_user: misp
+mysql_password: fjurzebn
+mysql_server: localhost
+mysql_database: misp
+
+# gpg params
+email: admin@stamus-networks.com
+real_name: Eric Leblond
+
+# salt: CHANGEME FIXME
+salt: Rooraenietu8Eeyo1020020202002u2eeNfterd-jiezrngjbrehbgyr
+
+# use background tasks
+background_tasks: true
+
+#set MISP in debug mode: 1 or 0
+debug: 1

@@ -1,0 +1,9 @@
+      - include: deps.yaml
+      - include: misp.yaml
+      - include: perms.yaml
+      - include: mysql.yaml
+      - include: apache.yaml
+      - include: gpg.yaml
+      - include: config.yaml
+      - include: background.yaml
+        when: background_tasks

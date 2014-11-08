@@ -1,0 +1,8 @@
+        - name: background tasks => start them
+          command: bash /var/www/MISP/app/Console/worker/start.sh
+          sudo: yes
+          sudo_user: www-data
+
+        - name: background tasks => update rc.local
+          lineinfile: dest=/etc/rc.local line='su www-data -c "bash /var/www/MISP/app/Console/worker/start.sh"' insertbefore="exit 0" state=present
+          sudo: yes

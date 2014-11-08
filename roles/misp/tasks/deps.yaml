@@ -1,0 +1,36 @@
+      - name: deps => install deb packages
+        apt: name={{ item }} state=latest update_cache=yes force=yes
+        with_items:
+          - apache2
+          - php5
+          - php5-mysql
+          - mysql-server
+          - zip
+          - php-pear
+          - git
+          - redis-server
+          - make
+          - python-dev
+          - python-pip
+          - libxml2-dev
+          - libxslt-dev
+          - zlib1g-dev
+          - php5-dev
+          - curl
+          - libmysqlclient-dev
+        tags:
+          - deploy-host-system-deps
+        sudo: yes
+
+      - name: deps => install pear modules
+        command: pear install -f {{ item }}
+        with_items:
+          - Crypt_GPG
+          - Net_GeoIP
+        sudo: yes
+
+      - name: deps => install python mysqldb
+        pip: name=MySQL-python
+        sudo: yes
+
+

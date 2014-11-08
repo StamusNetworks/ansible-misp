@@ -1,0 +1,63 @@
+      - name: misp => clone git repo
+        git: repo=https://github.com/regit/MISP.git dest=/var/www/MISP recursive=no
+        # track_submodules=yes
+        sudo: yes
+
+      - name: misp => ignore filesystem permissions
+        command: git config core.filemode false chdir=/var/www/MISP
+        sudo: yes
+
+      - name: misp => workaround on submodule mapping
+        command: git rm --cached app/Plugin/CakeResque chdir=/var/www/MISP
+        sudo: yes
+
+      #- name: misp => clone cybox repo
+      #  git: repo=https://github.com/CybOXProject/python-cybox.git dest=/var/www/MISP/app/files/scripts/python-cybox
+      #  sudo: yes
+
+      #- name: misp => clone stix repo
+      #  git: repo=https://github.com/STIXProject/python-stix.git dest=/var/www/MISP/app/files/scripts/python-stix
+      #  sudo: yes
+
+      - name: misp => install stix and cybox
+        pip: name={{ item }}
+        sudo: yes
+        with_items:
+          - cybox
+          - stix
+
+      - name: misp => cakephp submodule
+        command: git submodule init chdir=/var/www/MISP/
+        sudo: yes
+
+      - name: misp => cakephp submodule
+        command: git submodule update chdir=/var/www/MISP/
+        sudo: yes
+
+      - name: misp => install CakeResque
+        shell: curl -s https://getcomposer.org/installer | php chdir=/var/www/MISP/app
+        sudo: yes
+
+      - name: misp => install CakeResque
+        command: php composer.phar require --no-update kamisama/cake-resque:4.1.0 chdir=/var/www/MISP/app
+        sudo: yes
+
+      - name: misp => install CakeResque
+        command: php composer.phar config vendor-dir Vendor chdir=/var/www/MISP/app
+        sudo: yes
+
+      - name: misp => install CakeResque
+        command: php composer.phar install chdir=/var/www/MISP/app
+        sudo: yes
+
+      - name: misp => install CakeResque
+        command: pecl install -f redis chdir=/var/www/MISP/app
+        sudo: yes
+
+      - name: misp => apache2 config for redis
+        lineinfile: dest=/etc/php5/apache2filter/php.ini line='extension=redis.so' owner=root group=root mode=0644
+        sudo: yes
+
+      - name: misp => setup scheduler
+        command: cp -fa /var/www/MISP/INSTALL/setup/config.php /var/www/MISP/app/Plugin/CakeResque/Config/config.php
+        sudo: yes

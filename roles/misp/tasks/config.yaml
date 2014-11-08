@@ -1,0 +1,8 @@
+      - name: config => create config files via template
+        template: src={{ item }}.j2 dest=/var/www/MISP/app/Config/{{item}}
+        with_items:
+          - database.php
+          - bootstrap.php
+          - core.php
+          - config.php
+        sudo: yes

@@ -1,0 +1,11 @@
+%echo Generating a basic OpenPGP key
+Key-Type: RSA
+Subkey-Type: ELG-E
+Name-Real: {{ real_name }}
+Name-Email: {{ email }}
+Expire-Date: 0
+#%pubring foo.pub
+#%secring foo.sec
+# Do a commit here, so that we can later print "done" :-)
+%commit
+%echo done
