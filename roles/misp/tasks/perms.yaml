@@ -4,3 +4,7 @@
         with_items:
           - tmp
           - files
+          - Config
+          - Plugin/CakeResque/tmp/
+        tags:
+          - permissions
