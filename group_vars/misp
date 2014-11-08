@@ -7,8 +7,9 @@ mysql_database: misp
 email: admin@stamus-networks.com
 real_name: Eric Leblond
 
-# salt: CHANGEME FIXME
-salt: Rooraenietu8Eeyo1020020202002u2eeNfterd-jiezrngjbrehbgyr
+# salt: CHANGEME salt must be 32bytes long
+# Length stop at te last point .......
+salt: Rooraenietu8Eeyo<Qu2eeNfterd-dd+
 
 # use background tasks
 background_tasks: true
