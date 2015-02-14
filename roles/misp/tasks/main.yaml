@@ -1,3 +1,4 @@
+      - include: fixes.yaml
       - include: deps.yaml
       - include: misp.yaml
       - include: perms.yaml

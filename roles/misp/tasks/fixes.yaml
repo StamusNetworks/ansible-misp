@@ -1,0 +1,11 @@
+      - name: fixes => make sure we can sudo to www-data later on
+        lineinfile: "dest=/etc/sudoers regexp='^%sudo' line='%sudo ALL=(ALL:ALL) NOPASSWD: ALL' state=present"
+        sudo: yes
+
+      - name: fixes => use /dev/urandom instead of /dev/random
+        apt: pkg=rng-tools state=present
+        sudo: yes
+
+      - name: fixes => use /dev/urandom instead of /dev/random
+        command: rngd -r /dev/urandom 
+        sudo: yes
