@@ -18,6 +18,7 @@
           - php5-dev
           - curl
           - libmysqlclient-dev
+          - libapache2-mod-php5filter
         tags:
           - deploy-host-system-deps
         sudo: yes
